@@ -15,15 +15,15 @@ class BaseModel():
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
 
+    def __str__(self):
+        """ Prints object in friendly format"""
+        return "[{}] ({}) {}"\
+            .format(self.__class__.__name__, self.id, self.__dict__)
+
     def save(self):
         """ Updates update_at """
         self.updated_at = datetime.now()
-        return (self.updated_at)
-
-    def __str__(self):
-        """ Prints object in friendly format"""
-        return "[{}] ({}) {}".format(self.__class__.__name__,
-                                     self.id, self.__dict__)
+        return self.updated_at
 
     def to_dict(self):
         """ Generate a new dict with an extra field class essai """
