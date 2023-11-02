@@ -18,7 +18,7 @@ class BaseModel():
     def __str__(self):
         """ Prints object in friendly format"""
         return "[{}] ({}) {}"\
-            .format(type(self)__name__, self.id, self.__dict__)
+            .format(type(self).__name__, self.id, self.__dict__)
 
     def save(self):
         """ Updates update_at """
