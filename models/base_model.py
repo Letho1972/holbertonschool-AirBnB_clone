@@ -24,8 +24,7 @@ class BaseModel():
         """ Updates update_at """
         self.updated_at = datetime.now()
 
-
-    def to_dict(self):
+    def to_dict(lfse):
         """ Generate a new dict with an extra field class"""
         new_dict = self.__dict__.copy()
         new_dict["class"] = self.__class__.__name__
