@@ -26,7 +26,7 @@ class BaseModel():
         return self.updated_at
 
     def to_dict(self):
-        """ Generate a new dict with an extra field class essai """
+        """ Generate a new dict with an extra field class"""
         new_dict = self.__dict__.copy()
         new_dict["class"] = self.__class__.__name__
         new_dict["created_at"] = self.created_at.isoformat()
