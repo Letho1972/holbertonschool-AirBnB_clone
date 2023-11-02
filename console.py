@@ -7,7 +7,7 @@ import cmd
 
 class HBNBCommand(cmd.Cmd):
     """Class definition"""
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def do_quit(self, arg):
         """exit the program"""
@@ -18,8 +18,8 @@ class HBNBCommand(cmd.Cmd):
         print("")
         return True
 
-    def do_emptyline(self):
-        """empty line + ENTER shouldn’t execute anything"""
+    def emptyline(self, arg):
+        """Don't execute anything"""
         pass
 
 
