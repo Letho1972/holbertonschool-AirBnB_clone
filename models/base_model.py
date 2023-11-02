@@ -23,7 +23,7 @@ class BaseModel():
     def save(self):
         """ Updates update_at """
         self.updated_at = datetime.now()
-        return self.updated_at
+        return (self.updated_at)
 
     def to_dict(self):
         """ Generate a new dict with an extra field class"""
