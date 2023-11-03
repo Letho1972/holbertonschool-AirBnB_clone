@@ -84,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         instance = self.store.get(class_name, {}).pop(instance_id, None)
 
         if instance is None:
-            print("** instance id missing **")
+            print("** no instance found **")
             return
 
         self.save_file("models.json", self.store)
@@ -98,7 +98,7 @@ class HBNBCommand(cmd.Cmd):
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("**c lass doesn't exist **")
+            print("** class doesn't exist **")
             return
 
         instances = self.store.get(class_name, {})
@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
         instance = self.store.get(class_name, {}).get(instance_id)
 
         if instance is None:
-            print("** instance id is missing **")
+            print("** instance missing **")
             return
 
         for attribute in attributes:
