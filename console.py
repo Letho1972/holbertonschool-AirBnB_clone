@@ -8,10 +8,7 @@ import uuid
 from datetime import datetime
 from models.base_model import BaseModel
 
-
 MODEL_NAMES = {"BaseModel": BaseModel}
-"""Model class"""
-
 
 class HBNBCommand(cmd.Cmd):
     """Class definition"""
@@ -28,14 +25,14 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         if len(arg) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
             return
 
         class_name = arg[0]
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("**class doesn\'t exist**")
+            print("** class doesn\'t exist **")
             return
 
         instance = class_()
@@ -54,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         if len(arg) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
             return
 
         args = arg.split()
@@ -62,25 +59,25 @@ class HBNBCommand(cmd.Cmd):
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("**class doesn\'t exist**")
+            print("** class doesn\'t exist **")
             return
 
         if len(args) < 2:
-            print("**instance id missing**")
+            print("** instance id missing **")
             return
 
         instance_id = args[1]
         instance = self.store.get(class_name, {}).get(instance_id)
 
         if instance is None:
-            print("**no instance found**")
+            print("** no instance found **")
             return
 
         print(json.dumps(instance, indent=2))
 
     def do_destroy(self, arg):
         if len(arg) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
             return
 
         args = arg.split()
@@ -88,55 +85,55 @@ class HBNBCommand(cmd.Cmd):
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("**class doesn\'t exist**")
+            print("** class doesn\'t exist **")
             return
 
         if len(arg) < 2:
-            print("**instance id missing**")
+            print("** instance id missing **")
             return
 
         instance_id = args[1]
         instance = self.store.get(class_name, {}).pop(instance_id, None)
 
         if instance is None:
-            print("**no instance found**")
+            print("** no instance found **")
             return
 
         self.save_file("models.json", self.store)
 
     def do_all(self, arg):
         if len(arg) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
             return
 
         class_name = arg.split()[0]
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("**class doesn\'t exist**")
+            print("**c lass doesn\'t exist **")
             return
 
         instances = self.store.get(class_name, {})
 
         if not instances:
-            print("**no instances found**")
+            print("** no instances found *")
             return
 
         print(json.dumps(instances, indent=2))
 
     def do_update(self, arg):
         if len(arg) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
             return
         class_name = arg.split()[0]
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("**class doesn\'t exist**")
+            print("** class doesn\'t exist **")
             return
 
         if len(arg) < 3:
-            print("**instance id and attributes missing**")
+            print("** instance id and attributes missing **")
             return
 
         instance_id = arg[1]
@@ -145,7 +142,7 @@ class HBNBCommand(cmd.Cmd):
         instance = self.store.get(class_name, {}).get(instance_id)
 
         if instance is None:
-            print("**no instance found**")
+            print("** no instance found **")
             return
 
         for attribute in attributes:
