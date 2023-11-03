@@ -31,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
         elif arg[0] not in self.valid_classes:
-            print("** class doesn't")
+            print("** class doesn't exist")
         else:
             new_instance = self.valid_classes[args[0]]()
             new_instance.save()
@@ -47,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("** class doesn\'t exist **")
+            print("** class doesn't exist **")
             return
 
         if len(args) < 2:
@@ -58,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
         instance = self.store.get(class_name, {}).get(instance_id)
 
         if instance is None:
-            print("** no instance found **")
+            print("** instance id missing **")
             return
 
         print(json.dumps(instance, indent=2))
@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("** class doesn\'t exist **")
+            print("** class doesn't exist **")
             return
 
         if len(arg) < 2:
@@ -84,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         instance = self.store.get(class_name, {}).pop(instance_id, None)
 
         if instance is None:
-            print("** no instance found **")
+            print("** instance id missing **")
             return
 
         self.save_file("models.json", self.store)
@@ -98,13 +98,13 @@ class HBNBCommand(cmd.Cmd):
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("**c lass doesn\'t exist **")
+            print("**c lass doesn't exist **")
             return
 
         instances = self.store.get(class_name, {})
 
         if not instances:
-            print("** no instances found *")
+            print("** instance id missing **")
             return
 
         print(json.dumps(instances, indent=2))
@@ -117,7 +117,7 @@ class HBNBCommand(cmd.Cmd):
         class_ = MODEL_NAMES.get(class_name)
 
         if class_ is None:
-            print("** class doesn\'t exist **")
+            print("** class doesn't exist **")
             return
 
         if len(arg) < 3:
@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
         instance = self.store.get(class_name, {}).get(instance_id)
 
         if instance is None:
-            print("** no instance found **")
+            print("** instance id is missing **")
             return
 
         for attribute in attributes:
