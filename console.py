@@ -6,6 +6,7 @@ import cmd
 import json
 import uuid
 from datetime import datetime
+from models import storage
 from models.base_model import BaseModel
 
 MODEL_NAMES = {"BaseModel": BaseModel}
@@ -14,6 +15,7 @@ class HBNBCommand(cmd.Cmd):
     """Class definition"""
     prompt = "(hbnb) "
     store = {}
+    valid_classes = {"Basemodel": BaseModel,}
 
     def do_quit(self, arg):
         """exit the program"""
@@ -24,30 +26,16 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, arg):
-        if len(arg) == 0:
+        """Create a new instance of BaseModel, save it, and prints the id"""
+        args = arg.split()
+        if not args:
             print("** class name missing **")
-            return
-
-        class_name = arg[0]
-        class_ = MODEL_NAMES.get(class_name)
-
-        if class_ is None:
-            print("** class doesn\'t exist **")
-            return
-
-        instance = class_()
-        instance.id = str(uuid.uuid4())
-        instance.created_at = datetime.now()
-        instance.updated_at = datetime.now()
-
-        if class_name not in self.store:
-            self.store[class_name] = {}
-
-        self.store[class_name][instance.id] = instance.__dict__
-
-        self.save_file("models.json", self.store)   
-
-        print(instance.id)
+        elif arg[0] not in self.valid_classes:
+            print("** class doesn't")
+        else:
+            new_instance = self.valid_classes[args[0]]()
+            new_instance.save()
+            print(new_instance.id)
 
     def do_show(self, arg):
         if len(arg) == 0:
