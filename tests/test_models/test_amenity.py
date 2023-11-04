@@ -2,7 +2,6 @@
 """unittest for amenity module"""
 
 
-
 import unittest
 from models.amenity import Amenity
 
