@@ -3,6 +3,7 @@
 
 
 import cmd
+import json
 
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
@@ -52,6 +53,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         argsp = arg.split()
+
         if argsp[0] not in globals():
             print("** class doesn't exist **")
             return
@@ -59,13 +61,14 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
 
-        instance = "{}.{}".format(argsp[0], argsp[1])
-
-        if instance not in FileStorage.all():
+        instance = f"{argsp[0]}.{argsp[1]}"
+        storage = FileStorage()
+        storage.reload()
+        objects = storage.all()
+        if instance in objects:
+            print(objects[instance])
+        else:
             print("** no instance found **")
-            return
-
-        print(FileStorage.all()[instance])
 
     def do_destroy(self, arg):
         """Deletes an instance based on classname and id"""
@@ -79,29 +82,32 @@ class HBNBCommand(cmd.Cmd):
         if len(argsp) < 2:
             print("** instance id missing **")
             return
-
-        instance = "{}.{}".format(argsp[0], argsp[1])
+        
+        instance = f"{argsp[0]}.{argsp[1]}"
+        storage = FileStorage()
+        storage.reload()
+        objects = storage.all()
+        if instance in objects:
+            del objects[instance]
+            storage.save()
+        else:
+            print("** no instance found **")
 
     def do_all(self, arg):
         """Prints all string representation of all instances based
         or not on the class name"""
 
+        storage = FileStorage()
+        storage.reload()
+        objects = storage.all()
+
         if not arg:
-            print("** class name missing **")
-            return
-
-        with open("data.json", "r") as file:
-            data = json.load(file)
-
-        if arg not in data:
+            print([str(obj) for obj in objects.values()])
+        elif arg in globals():
+            print([str(obj) for obj in objects.values()
+                   if isinstance(obj, globals()[arg])])
+        else:
             print("** class doesn't exist **")
-            return
-
-        instances = []
-        for instance_id, instance_data in data[arg].items():
-            instances.append(str(instance_data))
-
-        print(instances)
 
     def do_update(self, arg):
         """Updates an instance based on classname and id"""
@@ -115,27 +121,22 @@ class HBNBCommand(cmd.Cmd):
         if len(argsp) < 2:
             print("** instance id missing **")
             return
-
-        if len(argsp) < 2:
-            print("** instance id missing **")
-            return
-
+        
         instance = f"{argsp[0]}.{argsp[1]}"
-
-        if instance not in storage.all():
+        storage = FileStorage()
+        storage.reload()
+        objects = storage.all()
+        if instance in objects:
+            if len(argsp) < 3:
+                print("** attribute name missing **")
+                return
+            if len(argsp) < 4:
+                print("** value missing **")
+                return
+            setattr(objects[instance], argsp[2], argsp[3])
+            storage.save()
+        else:
             print("** no instance found **")
-            return
-
-        if len(argsp) < 3:
-            print("** attribute name missing **")
-            return
-
-        if len(argsp) < 4:
-            print("** value missing **")
-            return
-
-        setattr(storage.all()[instance], argsp[2], argsp[3])
-        storage.save()
 
 
 if __name__ == '__main__':
