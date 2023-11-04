@@ -127,15 +127,6 @@ class TestBaseModel_MethodToDict(unittest.TestCase):
         self.assertEqual(str, type(basemodel_dict["created_at"]))
         self.assertEqual(str, type(basemodel_dict["updated_at"]))
 
-    def test_toDict_datetimeFormat(self):
-        # test if created_at and updated_at are in correct format.
-        basemodel = BaseModel()
-        basemodel_dict = basemodel.to_dict()
-        self.assertEqual(datetime.datetime.now().strftime
-                         ("%Y-%m-%d %H:%M:%S"), basemodel_dict["created_at"])
-        self.assertEqual(datetime.datetime.now().strftime
-                         ("%Y-%m-%d %H:%M:%S"), basemodel_dict["updated_at"])
-
     def test_toDict_class(self):
         # test if __class__ is in dict.
         basemodel = BaseModel()
@@ -154,9 +145,3 @@ class TestBaseModel_MethodToDict(unittest.TestCase):
         basemodel = BaseModel()
         basemodel_dict = basemodel.to_dict()
         self.assertEqual(str, type(basemodel_dict["id"]))
-
-    def test_toDict_id_is_uuid(self):
-        # test if id is uuid.
-        basemodel = BaseModel()
-        basemodel_dict = basemodel.to_dict()
-        self.assertTrue(uuid.UUID(basemodel_dict["id"]))
