@@ -132,9 +132,9 @@ class TestBaseModel_MethodToDict(unittest.TestCase):
         basemodel = BaseModel()
         basemodel_dict = basemodel.to_dict()
         self.assertEqual(datetime.datetime.now().strftime
-                         ("%Y-%m-%d %H:%M:%S"),basemodel_dict["created_at"])
+                         ("%Y-%m-%d %H:%M:%S"), basemodel_dict["created_at"])
         self.assertEqual(datetime.datetime.now().strftime
-                         ("%Y-%m-%d %H:%M:%S"),basemodel_dict["updated_at"])
+                         ("%Y-%m-%d %H:%M:%S"), basemodel_dict["updated_at"])
 
     def test_toDict_class(self):
         # test if __class__ is in dict.
