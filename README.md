@@ -114,27 +114,43 @@ Every time the backend is initialized, HolbertonBnB instantiates an instance of 
 Unittests for the HolbertonBnB project are defined in the tests folder. To run the entire test suite simultaneously, execute the following command:
 
 
-```shell
-$ ./hsh
-($) /bin/ls
-hsh main.c shell.c
-($)
-($) exit
-$
+Testing BaseModel_attribute
 ```
+class TestBaseModel_Attribut(unittest.TestCase):
 
-```shell
-$ echo "/bin/ls" | ./hsh
-hsh main.c shell.c test_ls_2
-$
-$ cat test_ls_2
-/bin/ls
-/bin/ls
-$
-$ cat test_ls_2 | ./hsh
-hsh main.c shell.c test_ls_2
-hsh main.c shell.c test_ls_2
-$
+    def test_no_args(self):
+        # test if no arg instantiated
+        self.assertEqual(BaseModel, type(BaseModel()))
+
+    def test_twoModel_uniqID(self):
+        # test if 2 creation not the same ID
+        basemodel1 = BaseModel()
+        basemodel2 = BaseModel()
+        self.assertNotEqual(basemodel1.id, basemodel2.id)
+
+    def test_publicID(self):
+        # test that ID is attribut string
+        basemodel3 = BaseModel()
+        self.assertEqual(type(basemodel3.id), str)
+        # test ID can be modify
+        basemodel3.id = "123123123"
+        self.assertEqual("123123123", basemodel3.id)
+
+    def test_publicCreated_at(self):
+        # test that created_at is type datetime
+        bm = BaseModel()
+        self.assertIsInstance(bm.created_at, datetime)
+        # test created_at can be modify
+        bm.created_at = '2022-02-22T10:02:02.02'
+        self.assertEqual("2022-02-22T10:02:02.02", bm.created_at)
+
+    def test_publicUpdate_at(self):
+        # test that update_at is public and type datetime
+        basemodel3 = BaseModel()
+        self.assertIsInstance(basemodel3.updated_at, datetime)
+        # test updated_at can be modify
+        basemodel3.updated_at = '2022-02-22T10:02:02.02'
+        self.assertEqual("2022-02-22T10:02:02.02", basemodel3.updated_at)
 ```
 
 
