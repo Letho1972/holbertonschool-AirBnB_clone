@@ -8,25 +8,26 @@ import os
 class FileStorage():
     """class that serializes instances to a JSON file and
     deserializes JSON file to instances"""
+
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
         """returns the dictionary __objects"""
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[key] = obj
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
         data = {}
-        for key, obj in self.__objects.items():
+        for key, obj in FileStorage.__objects.items():
             data[key] = obj.to_dict()
 
-        with open(FileStorage.__file_path, 'w') as file:
+        with open(FileStorage.__file_path, "w") as file:
             json.dump(data, file)
 
     def reload(self):
@@ -39,7 +40,9 @@ class FileStorage():
         with open(FileStorage.__file_path, "r") as file_path:
             objects = json.load(file_path)
             FileStorage.__objects = {}
-            for key in objects:
-                name = key.split(".")[0]
+            for key, value in objects.itemss:
+                name, obj_id = key.split(".")
+                my_dict = {"BaseModel": BaseModel, "FilsStorage": FileStorage}
                 if name in my_dict:
-                    FileStorage.__objects[key] = my_dict[name](**objects[key])
+                    obj = my_dict[name].from_dict(value)
+                    FileStorage.__objects[key] = obj
