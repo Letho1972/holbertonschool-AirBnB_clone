@@ -81,6 +81,8 @@ The console is a command line interpreter that permits management of the backend
 | update       | update < classname > < id > < attribute name > "< attribute value >" |
 
 Using the console:
+
+```
 guillaume@ubuntu:~/AirBnB$ ./console.py
 (hbnb) help
 
@@ -94,12 +96,13 @@ Quit command to exit the program
 
 (hbnb) 
 (hbnb) 
-(hbnb) quit 
+(hbnb) quit
+```
 
 
 ## Storage
 
-The above classes are handled by the abstracted storage engine defined in the [FileStorage](https://github.com/HolbyKate/holbertonschool-AirBnB_clone/models/engine/file_storage.py) class.
+The above classes are handled by the abstracted storage engine defined in the [FileStorage](https://github.com/HolbyKate/holbertonschool-AirBnB_clone/blob/main/models/engine/file_storage.py) class.
 
 Every time the backend is initialized, HolbertonBnB instantiates an instance of `FileStorage` called `storage`. The `storage` object is loaded/re-loaded from any class instances stored in the JSON file `file.json`. As class instances are created, updated, or deleted, the `storage` object is used to register corresponding changes in the `file.json`.
 
