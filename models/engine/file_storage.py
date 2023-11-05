@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class FileStorage():
     """class that serializes instances to a JSON file and
     deserializes JSON file to instances"""
@@ -44,7 +45,8 @@ class FileStorage():
         """deserializes the JSON file to __objects
         (only if the JSON file (__file_path) exists"""
         if path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, mode='r', encoding='utf-8') as f:
+            with open(FileStorage.__file_path, mode='r',
+                      encoding='utf-8') as f:
                 json_dict = json.loads(f.read())
                 for k, v in json_dict.items():
                     self.__objects[k] = eval(v['__class__'])(**v)
