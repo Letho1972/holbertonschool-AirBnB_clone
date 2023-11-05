@@ -1,7 +1,4 @@
 <h1 align="center"> AirBnB clone - The console </h1> <br>
-<p align="center">
-  <img src=""/>
-  <p align="center">
 
 
 * [Table of Contents](#-table-of-contents)
@@ -11,7 +8,6 @@
     * [Requirements](#requirements)
     * [The Console](#the-console)
     * [Storage](#storage)
-    * [Project instructions](#project-instructions)
     * [Examples and testing](#examples-and-testing)
     * [Peers](#peers)
     * [Sources](#sources)
@@ -36,6 +32,11 @@ The objective of this project is to create a complete web application composed b
         
 ## Compilation/Installation
 All our files is interpreted/compiled on Ubuntu 20.04 LTS using python3 (version 3.8.5)
+How to use the console:
+- Run the script like this: `./console.py`
+- It will show this prompt: `(hbnb)`
+- Some commands that you can run are `help` and `quit`.
+
 
 ## Requirements
 
@@ -67,26 +68,48 @@ Python Unit Tests
 - All our functions (inside and outside a class) should have a documentation (python3 -c 'print(__import__("my_module").my_function.__doc__)' and python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)')
             
 
-## The console
+## The Console
 
+The console is a command line interpreter that permits management of the backend of HolbertonBnB. It can be used to handle and manipulate all classes utilized by the application (achieved by calls on the storage object defined above).
+
+| **Commands** | **Syntax**                                                           |
+| ------------ | -------------------------------------------------------------------- |
+| create       | create < classname >                                                 |
+| show         | show < classname > < id >                                            |
+| destroy      | destroy < classname > < id >                                         |
+| all          | all < classname >                                                    |
+| update       | update < classname > < id > < attribute name > "< attribute value >" |
+
+Using the console:
+guillaume@ubuntu:~/AirBnB$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+
+(hbnb) 
+(hbnb) help quit
+Quit command to exit the program
+
+(hbnb) 
+(hbnb) 
+(hbnb) quit 
 
 
 ## Storage
 
+The above classes are handled by the abstracted storage engine defined in the [FileStorage](https://github.com/HolbyKate/holbertonschool-AirBnB_clone/models/engine/file_storage.py) class.
 
-## Project instructions
+Every time the backend is initialized, HolbertonBnB instantiates an instance of `FileStorage` called `storage`. The `storage` object is loaded/re-loaded from any class instances stored in the JSON file `file.json`. As class instances are created, updated, or deleted, the `storage` object is used to register corresponding changes in the `file.json`.
 
 
-* [Task 0](https://github.com/HolbyKate/holbertonschool-Simple_Shell-Testing/blob/master/Shell/Task%200.png)
-* [Task 1](https://github.com/HolbyKate/holbertonschool-Simple_Shell-Testing/blob/master/Shell/Task%201.png)
-* [Task 2](https://github.com/HolbyKate/holbertonschool-Simple_Shell-Testing/blob/master/Shell/Task%202.png)
-* [Task 3](https://github.com/HolbyKate/holbertonschool-Simple_Shell-Testing/blob/master/Shell/Task%203.png)
-* [Task 4](https://github.com/HolbyKate/holbertonschool-Simple_Shell-Testing/blob/master/Shell/Task%204.png)
-* [Task 5](https://github.com/HolbyKate/holbertonschool-Simple_Shell-Testing/blob/master/Shell/Task%205.png)
-* [Task 6](https://github.com/HolbyKate/holbertonschool-Simple_Shell-Testing/blob/master/Shell/Task%206.png)
 
    
 ## Examples and testing
+
+Unittests for the HolbertonBnB project are defined in the tests folder. To run the entire test suite simultaneously, execute the following command:
+
 
 ```shell
 $ ./hsh
