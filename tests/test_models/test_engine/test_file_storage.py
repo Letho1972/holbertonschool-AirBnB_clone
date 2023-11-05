@@ -5,8 +5,8 @@
 
 
 import unittest
-import os
 import json
+from os import path
 from datetime import datetime
 import models
 from models.base_model import BaseModel
