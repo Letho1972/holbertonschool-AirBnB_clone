@@ -44,7 +44,7 @@ class TestFileStorageBasic(unittest.TestCase):
 
     def test_objects_dict(self):
         # Test if __objects is a dictionary
-        self.assertEqual(dict, type(FileStorage._FileStorage__objects)
+        self.assertEqual(dict, type(FileStorage._FileStorage__objects))
 
 
 class TestFileStorageMethodAll(unittest.TestCase):
