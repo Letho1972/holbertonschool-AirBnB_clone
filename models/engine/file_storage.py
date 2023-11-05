@@ -13,7 +13,7 @@ class FileStorage():
 
     def all(self):
         """returns the dictionary __objects"""
-        return (self.__objects)
+        return self.__objects
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
@@ -32,23 +32,7 @@ class FileStorage():
     def reload(self):
         """deserializes the JSON file to __objects
         (only if the JSON file (__file_path) exists"""
-        from models import base_model
-        from models import user
-        from models import place
-        from models import state
-        from models import city
-        from models import amenity
-        from models import review
 
-        my_dict = {
-            "BaseModel": BaseModel,
-            "User": User,
-            "Place": Place,
-            "State": State,
-            "City": City,
-            "Amenity": Amenity,
-            "Review": Review
-        }
         if not os.path.isfile(FileStorage.__file_path):
             return
 
