@@ -82,7 +82,7 @@ class HBNBCommand(cmd.Cmd):
         if len(argsp) < 2:
             print("** instance id missing **")
             return
-        
+
         instance = f"{argsp[0]}.{argsp[1]}"
         storage = FileStorage()
         storage.reload()
@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
         if len(argsp) < 2:
             print("** instance id missing **")
             return
-        
+
         instance = f"{argsp[0]}.{argsp[1]}"
         storage = FileStorage()
         storage.reload()
