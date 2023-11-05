@@ -2,7 +2,7 @@
 """Module file_storage"""
 
 import json
-import os
+from os import path
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -43,15 +43,8 @@ class FileStorage():
     def reload(self):
         """deserializes the JSON file to __objects
         (only if the JSON file (__file_path) exists"""
-        if not os.path.isfile(FileStorage.__file_path):
-            return
-
-        with open(FileStorage.__file_path, "r") as file_path:
-            objects = json.load(file_path)
-            FileStorage.__objects = {}
-            for key, value in objects.items():
-                name, obj_id = key.split(".")
-                my_dict = {"BaseModel": BaseModel, "FilsStorage": FileStorage}
-                if name in my_dict:
-                    obj = my_dict[name].from_dict(value)
-                    FileStorage.__objects[key] = obj
+        if path.exists(FileStorage.__file_path):
+            with open(FileStorage.__file_path, mode='r', encoding='utf-8') as f:
+                json_dict = json.loads(f.read())
+                for k, v in json_dict.items():
+                    self.__objects[k] = eval(v['__class__'])(**v)
