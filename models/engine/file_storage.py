@@ -2,6 +2,7 @@
 """Module file_storage"""
 
 import json
+import os
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -49,7 +50,7 @@ class FileStorage():
         with open(FileStorage.__file_path, "r") as file_path:
             objects = json.load(file_path)
             FileStorage.__objects = {}
-            for key, value in objects.itemss:
+            for key, value in objects.items():
                 name, obj_id = key.split(".")
                 my_dict = {"BaseModel": BaseModel, "FilsStorage": FileStorage}
                 if name in my_dict:
