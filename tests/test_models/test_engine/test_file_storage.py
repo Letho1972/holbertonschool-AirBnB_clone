@@ -1,13 +1,9 @@
-#!/usr/bin.python3
-"""
-    Module of Unittest for models/engine/file_storage
-"""
+#!/usr/bin/python3
+"""unittest for file_storage module"""
 
 
+import os
 import unittest
-import json
-from os import path
-from datetime import datetime
 import models
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
@@ -19,37 +15,37 @@ from models.amenity import Amenity
 from models.review import Review
 
 
-class TestFileStorage_basic(unittest.TestCase):
-    """ Test instantiation of the FileStorage class"""
+class TestFileStorageBasic(unittest.TestCase):
+    """Test instantiation of the FileStorage class"""
 
-    def test_FileStorage_normal(self):
-        # test class Filestorage
-        self.assertEqual(type(FileStorage()), FileStorage)
+    def test_file_storage_instance(self):
+        # Test class FileStorage
+        self.assertIsInstance(FileStorage(), FileStorage)
 
-    def test_FileStorage_AnormalArg(self):
-        # test Filestorage if arg
+    def test_file_storage_with_argument(self):
+        # Test FileStorage with an argument
         with self.assertRaises(TypeError):
             FileStorage(None)
 
-    def test_FileStorage_Storage(self):
-        # test if storage
-        self.assertEqual(type(models.storage), FileStorage)
+    def test_storage_instance(self):
+        # Test if storage is an instance of FileStorage
+        self.assertIsInstance(models.storage, FileStorage)
 
-    def test_filepath_str(self):
-        # test file_path string file.json
-        self.assertTrue(str, FileStorage._FileStorage__file_path)
+    def test_file_path_string(self):
+        # Test if file_path is a string (file.json)
+        self.assertIsInstance(FileStorage._FileStorage__file_path, str)
 
-    def test_fileStorage_FilePath_str(self):
-        # test filestorage.__file_path is str
+    def test_file_path_type(self):
+        # Test if file_path is of type str
         self.assertEqual(str, type(FileStorage._FileStorage__file_path))
 
-    def test_fileStorage__objects_dict(self):
-        # test filestorage.__objects is dict
-        self.assertEqual(dict, type(FileStorage._FileStorage__objects))
+    def test_objects_dict(self):
+        # Test if __objects is a dictionary
+        self.assertEqual(dict, type(FileStorage._FileStorage__objects)
 
 
-class TestFileStorage_MethodAll(unittest.TestCase):
-    """ Test method all of the FileStorage class"""
+class TestFileStorageMethodAll(unittest.TestCase):
+    """Test method all of the FileStorage class"""
 
     def tearDown(self):
         try:
@@ -57,35 +53,34 @@ class TestFileStorage_MethodAll(unittest.TestCase):
         except IOError:
             pass
 
-    def test_all(self):
-        # test output is dict
+    def test_all_output_type(self):
+        # Test the output of all() is a dictionary
         self.assertEqual(dict, type(models.storage.all()))
 
-    def test_all_withArg(self):
-        # test if try to use all with args
+    def test_all_with_argument(self):
+        # Test if trying to use all() with arguments raises TypeError
         with self.assertRaises(TypeError):
             models.storage.all(89)
 
     def test_all_with_objects(self):
-        # test if the dictionary is stored in __objects.
+        # Test if the dictionary is stored in __objects
         file_storage = FileStorage()
         base_model = BaseModel()
         objects = file_storage.all()
-        self.assertIn("{}.{}".format(
-            base_model.__class__.__name__, base_model.id), objects)
-        self.assertEqual(objects["{}.{}".format(
-            base_model.__class__.__name__, base_model.id)], base_model)
+        key = "{}.{}".format(base_model.__class__.__name__, base_model.id)
+        self.assertIn(key, objects)
+        self.assertEqual(objects[key], base_model)
 
     def test_add_objects(self):
-        # test if add an objects in dict __objects with a key nameclass.id
+        # Test if adding objects in __objects with the key 'classname.id'
         file_storage = FileStorage()
         base_model = BaseModel()
         key = "{}.{}".format(base_model.__class__.__name__, base_model.id)
         self.assertEqual(file_storage._FileStorage__objects[key], base_model)
 
 
-class TestFileStorage_MethodNew(unittest.TestCase):
-    """ Test method new of the FileStorage class"""
+class TestFileStorageMethodNew(unittest.TestCase):
+    """Test method new of the FileStorage class"""
 
     def tearDown(self):
         try:
@@ -94,23 +89,25 @@ class TestFileStorage_MethodNew(unittest.TestCase):
             pass
 
     def test_new(self):
-        # create 1 instance of Class and subclass
+        # Create 1 instance of Class and its subclasses
         base1 = BaseModel()
         usr1 = User()
         state1 = State()
         place1 = Place()
-        cyty1 = City()
+        city1 = City()
         amenity1 = Amenity()
         review1 = Review()
-        # storage all instance
+
+        # Add instances to storage
         models.storage.new(base1)
         models.storage.new(usr1)
         models.storage.new(state1)
         models.storage.new(place1)
-        models.storage.new(cyty1)
+        models.storage.new(city1)
         models.storage.new(amenity1)
         models.storage.new(review1)
-        # test for each key in storage and value
+
+        # Test for each key in storage and value
         self.assertIn("BaseModel." + base1.id, models.storage.all().keys())
         self.assertIn(base1, models.storage.all().values())
         self.assertIn("User." + usr1.id, models.storage.all().keys())
@@ -119,35 +116,26 @@ class TestFileStorage_MethodNew(unittest.TestCase):
         self.assertIn(state1, models.storage.all().values())
         self.assertIn("Place." + place1.id, models.storage.all().keys())
         self.assertIn(place1, models.storage.all().values())
-        self.assertIn("City." + cyty1.id, models.storage.all().keys())
-        self.assertIn(cyty1, models.storage.all().values())
+        self.assertIn("City." + city1.id, models.storage.all().keys())
+        self.assertIn(city1, models.storage.all().values())
         self.assertIn("Amenity." + amenity1.id, models.storage.all().keys())
         self.assertIn(amenity1, models.storage.all().values())
         self.assertIn("Review." + review1.id, models.storage.all().keys())
         self.assertIn(review1, models.storage.all().values())
 
-        def test_new_with_objects(self):
-            file_storage = FileStorage()
-            base_model = BaseModel()
-            objects = file_storage.all()
-            self.assertIn("{}.{}".format(
-                base_model.__class__.__name__, base_model.id), objects)
-            self.assertEqual(objects["{}.{}".format(
-                base_model.__class__.__name__, base_model.id)], base_model)
-
-    def test_new_Args(self):
-        # if use new with arg
+    def test_new_with_args(self):
+        # If using new with args should raise TypeError
         with self.assertRaises(TypeError):
             models.storage.new(User(), 45)
 
-    def test_new_None(self):
-        # if use new with None
+    def test_new_with_none(self):
+        # If using new with None should raise AttributeError
         with self.assertRaises(AttributeError):
             models.storage.new(None)
 
 
-class TestFileStorage_MethodSave(unittest.TestCase):
-    """ Test method save of the FileStorage class"""
+class TestFileStorageMethodSave(unittest.TestCase):
+    """Test method save of the FileStorage class"""
 
     def tearDown(self):
         try:
@@ -155,14 +143,14 @@ class TestFileStorage_MethodSave(unittest.TestCase):
         except IOError:
             pass
 
-    def test_save_Arg(self):
-        # test if save with args
+    def test_save_with_arg(self):
+        # Test if save with args should raise TypeError
         with self.assertRaises(TypeError):
             models.storage.save(456)
 
 
-class TestFileStorage_MethodReload(unittest.TestCase):
-    """ Test method save of the FileStorage class"""
+class TestFileStorageMethodReload(unittest.TestCase):
+    """Test method reload of the FileStorage class"""
 
     def tearDown(self):
         try:
@@ -170,13 +158,13 @@ class TestFileStorage_MethodReload(unittest.TestCase):
         except IOError:
             pass
 
-    def test_reload_Arg(self):
-        # if test reload with args
+    def test_reload_with_arg(self):
+        # Test reload with args should raise TypeError
         with self.assertRaises(TypeError):
             models.storage.reload("user123")
 
     def test_reload(self):
-        # test reload method
+        # Test reload method
         with self.assertRaises(TypeError):
             models.storage.reload(None)
 
