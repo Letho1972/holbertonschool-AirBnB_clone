@@ -81,3 +81,15 @@ article h2 {
 .user {
     margin: 10px auto;
 }
+
+.max_guest p {
+    margin-top: 10px;
+}
+
+.number_rooms p {
+    margin-top: 10px;
+}
+
+.number_bathrooms p {
+    margin-top: 10px;
+}
